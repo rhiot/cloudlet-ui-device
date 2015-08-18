@@ -1,15 +1,15 @@
 {
-  "name": "cloudlet-geofencing",
+  "name": "cloudlet-device",
   "version": "0.1.1",
   "keywords": [
     "hawtio"
   ],
   "main": [
-    "dist/geofencing-ui.js",
-    "dist/geofencing-ui.css"
+    "dist/device-ui.js",
+    "dist/device-ui.css"
   ],
   "ignore": [
-    "dist/geofencing-ui-test.js",
+    "dist/device-ui-test.js",
     "**/.*",
     "node_modules",
     "libs",

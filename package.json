@@ -1,5 +1,5 @@
 {
-  "name": "geofencing-ui",
+  "name": "device-ui",
   "version": "0.0.0",
   "devDependencies": {
     "URIjs": "^1.14.1",
