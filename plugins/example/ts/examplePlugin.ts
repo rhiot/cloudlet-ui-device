@@ -15,19 +15,19 @@
 
 /// <reference path="../../includes.ts"/>
 /// <reference path="exampleGlobals.ts"/>
-module Example {
+module Devices {
 
-  export var _module = angular.module(Example.pluginName, []);
+  export var _module = angular.module(Devices.pluginName, []);
 
   var tab = undefined;
 
   _module.config(["$locationProvider", "$routeProvider", "HawtioNavBuilderProvider",
     ($locationProvider, $routeProvider: ng.route.IRouteProvider, builder: HawtioMainNav.BuilderFactory) => {
     tab = builder.create()
-      .id(Example.pluginName)
-      .title(() => "Geofencing")
-      .href(() => "/geofencing")
-      .subPath("Routes", "routes", builder.join(Example.templatePath, "routes.html"))
+      .id(Devices.pluginName)
+      .title(() => "Devices")
+      .href(() => "/devices")
+      .subPath("Devices", "devices", builder.join(Devices.templatePath, "devices.html"))
       .build();
     builder.configureRouting($routeProvider, tab);
     $locationProvider.html5Mode(true);
@@ -39,5 +39,5 @@ module Example {
   }]);
 
 
-  hawtioPluginLoader.addModule(Example.pluginName);
+  hawtioPluginLoader.addModule(Devices.pluginName);
 }

@@ -1,4 +1,4 @@
 /// <reference path="examplePlugin.d.ts" />
-declare module Example {
+declare module Devices {
     var RoutesController: ng.IModule;
 }

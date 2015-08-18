@@ -14,10 +14,10 @@
 /// limitations under the License.
 /// <reference path="../../includes.ts"/>
 /// <reference path="geofencing.ts"/>
-var Example;
-(function (Example) {
-    Example.pluginName = "hawtio-assembly";
-    Example.log = Logger.get(Example.pluginName);
-    Example.templatePath = "plugins/example/html";
-})(Example || (Example = {}));
+var Devices;
+(function (Devices) {
+    Devices.pluginName = "cloudlet-device";
+    Devices.log = Logger.get(Devices.pluginName);
+    Devices.templatePath = "plugins/example/html";
+})(Devices || (Devices = {}));
 //# sourceMappingURL=exampleGlobals.js.map

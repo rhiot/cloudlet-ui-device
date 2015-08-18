@@ -14,19 +14,25 @@
 /// limitations under the License.
 /// <reference path="../../includes.ts"/>
 /// <reference path="exampleGlobals.ts"/>
-var Example;
-(function (Example) {
-    Example._module = angular.module(Example.pluginName, []);
+var Devices;
+(function (Devices) {
+    Devices._module = angular.module(Devices.pluginName, []);
     var tab = undefined;
-    Example._module.config(["$locationProvider", "$routeProvider", "HawtioNavBuilderProvider", function ($locationProvider, $routeProvider, builder) {
-        tab = builder.create().id(Example.pluginName).title(function () { return "Geofencing"; }).href(function () { return "/geofencing"; }).subPath("Routes", "routes", builder.join(Example.templatePath, "routes.html")).build();
-        builder.configureRouting($routeProvider, tab);
-        $locationProvider.html5Mode(true);
-    }]);
-    Example._module.run(["HawtioNav", function (HawtioNav) {
-        HawtioNav.add(tab);
-        Example.log.debug("loaded");
-    }]);
-    hawtioPluginLoader.addModule(Example.pluginName);
-})(Example || (Example = {}));
+    Devices._module.config(["$locationProvider", "$routeProvider", "HawtioNavBuilderProvider",
+        function ($locationProvider, $routeProvider, builder) {
+            tab = builder.create()
+                .id(Devices.pluginName)
+                .title(function () { return "Devices"; })
+                .href(function () { return "/devices"; })
+                .subPath("Devices", "devices", builder.join(Devices.templatePath, "devices.html"))
+                .build();
+            builder.configureRouting($routeProvider, tab);
+            $locationProvider.html5Mode(true);
+        }]);
+    Devices._module.run(["HawtioNav", function (HawtioNav) {
+            HawtioNav.add(tab);
+            Devices.log.debug("loaded");
+        }]);
+    hawtioPluginLoader.addModule(Devices.pluginName);
+})(Devices || (Devices = {}));
 //# sourceMappingURL=examplePlugin.js.map

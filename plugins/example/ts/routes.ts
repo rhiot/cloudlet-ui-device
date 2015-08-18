@@ -14,9 +14,9 @@
 /// limitations under the License.
 
 /// <reference path="examplePlugin.ts"/>
-module Example {
+module Devices {
 
-  export var RoutesController = _module.controller("Example.RoutesController", ["$scope", "$http", "$route", ($scope, $http, $route) => {
+  export var RoutesController = _module.controller("Devices.RoutesController", ["$scope", "$http", "$route", ($scope, $http, $route) => {
     $scope.loadRoutes = function() {
         $http.get(Geofencing.geofencingCloudletApiBase() + '/routes/routes/' + $scope.selectedOption.id).
             success(function(data, status, headers, config) {

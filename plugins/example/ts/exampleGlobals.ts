@@ -15,9 +15,9 @@
 
 /// <reference path="../../includes.ts"/>
 /// <reference path="geofencing.ts"/>
-module Example {
+module Devices {
 
-  export var pluginName = "hawtio-assembly";
+  export var pluginName = "cloudlet-device";
 
   export var log: Logging.Logger = Logger.get(pluginName);
 
