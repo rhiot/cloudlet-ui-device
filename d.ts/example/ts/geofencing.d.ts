@@ -6,4 +6,5 @@ declare module Geofencing {
     function cloudletApiBase(): string;
     function geofencingCloudletApiBase(): string;
     function documentCloudletApiBase(): string;
+    function deviceCloudletApiBase(): string;
 }

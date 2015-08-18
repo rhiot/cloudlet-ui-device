@@ -16,6 +16,13 @@
 var Devices;
 (function (Devices) {
     Devices.RoutesController = Devices._module.controller("Devices.RoutesController", ["$scope", "$http", "$route", function ($scope, $http, $route) {
+            $http.get(Geofencing.deviceCloudletApiBase() + '/device').
+                success(function (data, status, headers, config) {
+                $scope.devices = data.devices;
+            }).
+                error(function (data, status, headers, config) {
+                $scope.flash = 'Cannot connect to the device service.';
+            });
             $scope.loadRoutes = function () {
                 $http.get(Geofencing.geofencingCloudletApiBase() + '/routes/routes/' + $scope.selectedOption.id).
                     success(function (data, status, headers, config) {

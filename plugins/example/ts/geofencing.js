@@ -32,7 +32,7 @@ var Geofencing;
     function cloudletApiBase() {
         var cloudUriFromParam = uriParam(Geofencing.cloudUriParam);
         var uri = cloudUriFromParam == null ? Geofencing.windowLocationHostname() : cloudUriFromParam;
-        return 'http://' + uri + ':15001/api';
+        return 'http://' + uri + ':15000/api';
     }
     Geofencing.cloudletApiBase = cloudletApiBase;
     function geofencingCloudletApiBase() {
@@ -43,5 +43,9 @@ var Geofencing;
         return cloudletApiBase() + '/document';
     }
     Geofencing.documentCloudletApiBase = documentCloudletApiBase;
+    function deviceCloudletApiBase() {
+        return cloudletApiBase();
+    }
+    Geofencing.deviceCloudletApiBase = deviceCloudletApiBase;
 })(Geofencing || (Geofencing = {}));
 //# sourceMappingURL=geofencing.js.map

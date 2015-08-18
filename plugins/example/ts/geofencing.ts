@@ -36,7 +36,7 @@ module Geofencing {
     export function cloudletApiBase() {
         var cloudUriFromParam = uriParam(cloudUriParam);
         var uri = cloudUriFromParam == null ? windowLocationHostname() : cloudUriFromParam;
-        return 'http://' + uri + ':15001/api';
+        return 'http://' + uri + ':15000/api';
     }
 
     export function geofencingCloudletApiBase() {
@@ -45,6 +45,10 @@ module Geofencing {
 
     export function documentCloudletApiBase() {
         return cloudletApiBase() + '/document';
+    }
+
+    export function deviceCloudletApiBase() {
+        return cloudletApiBase();
     }
 
 }

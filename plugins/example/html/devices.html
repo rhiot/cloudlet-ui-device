@@ -18,6 +18,12 @@
     <div class="col-md-12" ng-controller="Devices.RoutesController">
         <p ng-show="flash">{{flash}}</p>
 
+            <p>
+            <div ng-repeat="devices in devices">
+                    {{device.endpoint}} <br/>
+            </div>
+            </p>
+
         Show routes for <select ng-show="clients.length > 0" data-ng-options="o.name for o in clients"
                 data-ng-model="selectedOption" ng-change="clientSelected()"></select>
 
