@@ -32,7 +32,7 @@ var Geofencing;
     function cloudletApiBase() {
         var cloudUriFromParam = uriParam(Geofencing.cloudUriParam);
         var uri = cloudUriFromParam == null ? Geofencing.windowLocationHostname() : cloudUriFromParam;
-        return 'http://' + uri + ':15000/api';
+        return 'http://' + uri + ':15000';
     }
     Geofencing.cloudletApiBase = cloudletApiBase;
     function geofencingCloudletApiBase() {

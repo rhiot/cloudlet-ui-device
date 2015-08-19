@@ -17,9 +17,18 @@
 module Devices {
 
   export var RoutesController = _module.controller("Devices.RoutesController", ["$scope", "$http", "$route", ($scope, $http, $route) => {
-      $http.get(Geofencing.deviceCloudletApiBase() + '/device').
+      $scope.imagesPrefix = window.location.port == '2772' ? 'images' : 'libs/cloudlet-device/images';
+
+      $http.get(Geofencing.deviceCloudletApiBase() + '/device/disconnected').
           success(function(data, status, headers, config) {
-              $scope.devices = data.devices;
+              $scope.disconnectedDevices = data.disconnectedDevices;
+              $http.get(Geofencing.deviceCloudletApiBase() + '/device').
+                  success(function(data, status, headers, config) {
+                      $scope.devices = data.devices;
+                  }).
+                  error(function(data, status, headers, config) {
+                      $scope.flash = 'Cannot connect to the device service.';
+                  });
           }).
           error(function(data, status, headers, config) {
               $scope.flash = 'Cannot connect to the device service.';
@@ -61,32 +70,6 @@ module Devices {
           });
     };
 
-    $http.get(Geofencing.geofencingCloudletApiBase() + '/routes/clients').
-        success(function(data, status, headers, config) {
-          $scope.clients = data.clients.map(function (val) {
-            return {
-              name: val,
-              id: val
-            };
-          });
-          if(data.clients.length > 0) {
-            $scope.selectedOption = $scope.clients[0];
-            $scope.clientSelected();
-          }
-        }).
-        error(function(data, status, headers, config) {
-          $scope.flash = 'Cannot connect to the geofencing service.';
-        });
-      $scope.addComment = function() {
-          $http.post(Geofencing.cloudletApiBase() + '/document/save/RouteComment', {routeId: $scope.selectedRoute.id, text: $scope.newComment, created: new Date().getTime()}).
-              success(function(data, status, headers, config) {
-                  $scope.loadRouteComments();
-                  $scope.flash = 'New comment has been added to the route.';
-              }).
-              error(function(data, status, headers, config) {
-                  $scope.flash = 'There was problem with adding comment to the route.';
-              });
-      };
       $scope.loadRouteComments = function() {
           $http.post(Geofencing.cloudletApiBase() + '/document/findByQuery/RouteComment', {page: 0, size: 100, orderBy: ['created'], sortAscending: -1, query: {routeIdIn: [$scope.selectedRoute.id]}}).
               success(function(data, status, headers, config) {
