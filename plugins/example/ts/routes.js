@@ -16,7 +16,7 @@
 var Devices;
 (function (Devices) {
     Devices.RoutesController = Devices._module.controller("Devices.RoutesController", ["$scope", "$http", "$route", function ($scope, $http, $route) {
-            $scope.imagesPrefix = window.location.port == '2772' ? 'images' : 'libs/cloudlet-device/images';
+            $scope.imagesPrefix = window.location.port === '2772' ? 'images' : 'libs/cloudlet-device/images';
             $http.get(Geofencing.deviceCloudletApiBase() + '/device/disconnected').
                 success(function (data, status, headers, config) {
                 $scope.disconnectedDevices = data.disconnectedDevices;
