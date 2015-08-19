@@ -6,7 +6,8 @@
   ],
   "main": [
     "dist/device-ui.js",
-    "dist/device-ui.css"
+    "dist/device-ui.css",
+    "images/*"
   ],
   "ignore": [
     "dist/device-ui-test.js",
