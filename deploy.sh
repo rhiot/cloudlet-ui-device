@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+
+gulp build
+
 VERSION=0.1.1
 git tag -d $VERSION
 git tag -a $VERSION -m "Version $VERSION"

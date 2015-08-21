@@ -16,23 +16,41 @@
 /// <reference path="examplePlugin.ts"/>
 module Devices {
 
-  export var RoutesController = _module.controller("Devices.RoutesController", ["$scope", "$http", "$route", ($scope, $http, $route) => {
+  export var RoutesController = _module.controller("Devices.RoutesController", ["$scope", "$http", "$route", "$interval", ($scope, $http, $route, $interval) => {
       $scope.imagesPrefix = window.location.port === '2772' ? 'images' : 'libs/cloudlet-device/images';
 
-      $http.get(Geofencing.deviceCloudletApiBase() + '/device/disconnected').
-          success(function(data, status, headers, config) {
-              $scope.disconnectedDevices = data.disconnectedDevices;
-              $http.get(Geofencing.deviceCloudletApiBase() + '/device').
-                  success(function(data, status, headers, config) {
-                      $scope.devices = data.devices;
-                  }).
-                  error(function(data, status, headers, config) {
-                      $scope.flash = 'Cannot connect to the device service.';
-                  });
-          }).
-          error(function(data, status, headers, config) {
-              $scope.flash = 'Cannot connect to the device service.';
-          });
+      $scope.updateDevicesList = function() {
+          $http.get(Geofencing.deviceCloudletApiBase() + '/device/disconnected').
+              success(function(data, status, headers, config) {
+                  $scope.disconnectedDevices = data.disconnectedDevices;
+                  $http.get(Geofencing.deviceCloudletApiBase() + '/device').
+                      success(function(data, status, headers, config) {
+                          $scope.devices = data.devices;
+                      }).
+                      error(function(data, status, headers, config) {
+                          $scope.flash = 'Cannot connect to the device service.';
+                      });
+              }).
+              error(function(data, status, headers, config) {
+                  $scope.flash = 'Cannot connect to the device service.';
+              });
+
+      };
+
+      $scope.updateDevicesList();
+      $interval($scope.updateDevicesList, 1000);
+
+      $scope.sendHeartbeat = function(deviceId) {
+          $http.get(Geofencing.deviceCloudletApiBase() + '/device/' + deviceId + '/heartbeat').
+              success(function(data, status, headers, config) {
+                  log.debug('Heartbeat sent to the device ' + deviceId + '.');
+                  $scope.updateDevicesList();
+              }).
+              error(function(data, status, headers, config) {
+                  $scope.flash = 'Cannot connect to the device service.';
+              }
+          );
+      };
 
     $scope.loadRoutes = function() {
         $http.get(Geofencing.geofencingCloudletApiBase() + '/routes/routes/' + $scope.selectedOption.id).
@@ -60,30 +78,6 @@ module Devices {
       $scope.routesExportLink = Geofencing.geofencingCloudletApiBase() + '/routes/export/' + $scope.client + '/xls';
       $scope.loadRoutes();
     };
-
-    $scope.routeSelected = function () {
-          $http.get(Geofencing.geofencingCloudletApiBase() + '/routes/routeUrl/' + $scope.selectedRoute.id).success(function (data, status, headers, config) {
-              $scope.routeUrl = data.routeUrl;
-              $scope.loadRouteComments();
-          }).error(function (data, status, headers, config) {
-              $scope.flash = 'Cannot connect to the geofencing service.';
-          });
-    };
-
-      $scope.loadRouteComments = function() {
-          $http.post(Geofencing.cloudletApiBase() + '/document/findByQuery/RouteComment', {page: 0, size: 100, orderBy: ['created'], sortAscending: -1, query: {routeIdIn: [$scope.selectedRoute.id]}}).
-              success(function(data, status, headers, config) {
-                  $scope.routeComments = data;
-              }).
-              error(function(data, status, headers, config) {
-                  $scope.flash = 'There was problem reading route comments.';
-              });
-      };
-
-      $scope.deleteRoute = function() {
-          $http.delete(Geofencing.geofencingCloudletApiBase() + '/routes/delete/' + $scope.selectedRoute.id);
-          $route.reload();
-      };
   }]);
 
 }
