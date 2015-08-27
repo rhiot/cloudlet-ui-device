@@ -1,4 +1,4 @@
-# Rhiot geofencing cloudlet UI
+# Rhiot Device Cloudlet UI
 
-Provides Hawt.io plugin for the Rhiot Geofencing cloudlet. Can be used to graphically displays the GPS data collected
-by the cloudlet.
+Provides Hawt.io plugin for the Rhiot Device Cloudlet. It can be used to graphically manage and monitor devices
+connected to the Rhiot cloud.
