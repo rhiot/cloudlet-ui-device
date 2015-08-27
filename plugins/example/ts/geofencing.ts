@@ -13,7 +13,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 
-module Geofencing {
+module Device {
 
     export var windowLocationHref = function() {
         return window.location.href;
@@ -24,7 +24,7 @@ module Geofencing {
     };
 
     export function uriParam(name) {
-        var url = Geofencing.windowLocationHref();
+        var url = Device.windowLocationHref();
         name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
         var regex = new RegExp( "[\\?&]"+name+"=([^&#]*)" );
         var results = regex.exec( url );
@@ -49,6 +49,11 @@ module Geofencing {
 
     export function deviceCloudletApiBase() {
         return cloudletApiBase();
+    }
+
+    export function deviceManagementCloudletFailure(scope) {
+        scope.flash = 'Cannot connect to the Device Management Cloudlet.';
+        scope.isDeviceManagementCloudletConnected = false;
     }
 
 }

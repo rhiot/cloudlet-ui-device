@@ -18,58 +18,39 @@ var Devices;
     Devices.RoutesController = Devices._module.controller("Devices.RoutesController", ["$scope", "$http", "$route", "$interval", function ($scope, $http, $route, $interval) {
             $scope.imagesPrefix = window.location.port === '2772' ? 'images' : 'libs/cloudlet-device/images';
             $scope.updateDevicesList = function () {
-                $http.get(Geofencing.deviceCloudletApiBase() + '/device/disconnected').
+                $http.get(Device.deviceCloudletApiBase() + '/device/disconnected').
                     success(function (data, status, headers, config) {
                     $scope.disconnectedDevices = data.disconnectedDevices;
-                    $http.get(Geofencing.deviceCloudletApiBase() + '/device').
+                    $http.get(Device.deviceCloudletApiBase() + '/device').
                         success(function (data, status, headers, config) {
+                        $scope.isDeviceManagementCloudletConnected = true;
                         $scope.devices = data.devices;
                     }).
                         error(function (data, status, headers, config) {
-                        $scope.flash = 'Cannot connect to the device service.';
+                        Device.deviceManagementCloudletFailure($scope);
                     });
                 }).
                     error(function (data, status, headers, config) {
-                    $scope.flash = 'Cannot connect to the device service.';
+                    Device.deviceManagementCloudletFailure($scope);
                 });
             };
             $scope.updateDevicesList();
             $interval($scope.updateDevicesList, 1000);
             $scope.sendHeartbeat = function (deviceId) {
-                $http.get(Geofencing.deviceCloudletApiBase() + '/device/' + deviceId + '/heartbeat').
+                $http.get(Device.deviceCloudletApiBase() + '/device/' + deviceId + '/heartbeat').
                     success(function (data, status, headers, config) {
                     Devices.log.debug('Heartbeat sent to the device ' + deviceId + '.');
                     $scope.updateDevicesList();
                 }).
                     error(function (data, status, headers, config) {
-                    $scope.flash = 'Cannot connect to the device service.';
-                });
-            };
-            $scope.loadRoutes = function () {
-                $http.get(Geofencing.geofencingCloudletApiBase() + '/routes/routes/' + $scope.selectedOption.id).
-                    success(function (data, status, headers, config) {
-                    $scope.routes = data.routes.map(function (val) {
-                        var routeTimestamp = new Date(val.created);
-                        var timestamp = (routeTimestamp.getMonth() + 1) + "-" + routeTimestamp.getDate() + "-" + routeTimestamp.getFullYear() + ' ' + routeTimestamp.getHours() + ":" + routeTimestamp.getMinutes() + ":" + routeTimestamp.getSeconds();
-                        return {
-                            name: timestamp,
-                            id: val.id
-                        };
-                    });
-                    if (data.routes.length > 0) {
-                        $scope.selectedRoute = $scope.routes[0];
-                        $scope.routeSelected();
-                    }
-                }).
-                    error(function (data, status, headers, config) {
-                    $scope.flash = 'Cannot connect to the geofencing service.';
+                    Device.deviceManagementCloudletFailure($scope);
                 });
             };
             $scope.clientSelected = function () {
                 $scope.client = $scope.selectedOption.id;
-                $scope.routesExportLink = Geofencing.geofencingCloudletApiBase() + '/routes/export/' + $scope.client + '/xls';
+                $scope.routesExportLink = Device.geofencingCloudletApiBase() + '/routes/export/' + $scope.client + '/xls';
                 $scope.loadRoutes();
             };
         }]);
 })(Devices || (Devices = {}));
-//# sourceMappingURL=routes.js.map
+//# sourceMappingURL=devices.js.map

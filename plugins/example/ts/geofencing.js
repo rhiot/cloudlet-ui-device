@@ -12,40 +12,45 @@
 /// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
-var Geofencing;
-(function (Geofencing) {
-    Geofencing.windowLocationHref = function () {
+var Device;
+(function (Device) {
+    Device.windowLocationHref = function () {
         return window.location.href;
     };
-    Geofencing.windowLocationHostname = function () {
+    Device.windowLocationHostname = function () {
         return window.location.hostname;
     };
     function uriParam(name) {
-        var url = Geofencing.windowLocationHref();
+        var url = Device.windowLocationHref();
         name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
         var regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
         var results = regex.exec(url);
         return results == null ? null : results[1];
     }
-    Geofencing.uriParam = uriParam;
-    Geofencing.cloudUriParam = 'cloudUri';
+    Device.uriParam = uriParam;
+    Device.cloudUriParam = 'cloudUri';
     function cloudletApiBase() {
-        var cloudUriFromParam = uriParam(Geofencing.cloudUriParam);
-        var uri = cloudUriFromParam == null ? Geofencing.windowLocationHostname() : cloudUriFromParam;
+        var cloudUriFromParam = uriParam(Device.cloudUriParam);
+        var uri = cloudUriFromParam == null ? Device.windowLocationHostname() : cloudUriFromParam;
         return 'http://' + uri + ':15000';
     }
-    Geofencing.cloudletApiBase = cloudletApiBase;
+    Device.cloudletApiBase = cloudletApiBase;
     function geofencingCloudletApiBase() {
         return cloudletApiBase() + '/geofencing';
     }
-    Geofencing.geofencingCloudletApiBase = geofencingCloudletApiBase;
+    Device.geofencingCloudletApiBase = geofencingCloudletApiBase;
     function documentCloudletApiBase() {
         return cloudletApiBase() + '/document';
     }
-    Geofencing.documentCloudletApiBase = documentCloudletApiBase;
+    Device.documentCloudletApiBase = documentCloudletApiBase;
     function deviceCloudletApiBase() {
         return cloudletApiBase();
     }
-    Geofencing.deviceCloudletApiBase = deviceCloudletApiBase;
-})(Geofencing || (Geofencing = {}));
+    Device.deviceCloudletApiBase = deviceCloudletApiBase;
+    function deviceManagementCloudletFailure(scope) {
+        scope.flash = 'Cannot connect to the Device Management Cloudlet.';
+        scope.isDeviceManagementCloudletConnected = false;
+    }
+    Device.deviceManagementCloudletFailure = deviceManagementCloudletFailure;
+})(Device || (Device = {}));
 //# sourceMappingURL=geofencing.js.map

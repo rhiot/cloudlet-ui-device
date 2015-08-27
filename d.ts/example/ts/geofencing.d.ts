@@ -1,4 +1,4 @@
-declare module Geofencing {
+declare module Device {
     var windowLocationHref: () => string;
     var windowLocationHostname: () => string;
     function uriParam(name: any): string;
@@ -7,4 +7,5 @@ declare module Geofencing {
     function geofencingCloudletApiBase(): string;
     function documentCloudletApiBase(): string;
     function deviceCloudletApiBase(): string;
+    function deviceManagementCloudletFailure(scope: any): void;
 }
