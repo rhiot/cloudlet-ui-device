@@ -12,7 +12,7 @@
 /// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
-/// <reference path="examplePlugin.ts"/>
+/// <reference path="devicesPlugin.ts"/>
 var Devices;
 (function (Devices) {
     Devices.RoutesController = Devices._module.controller("Devices.RoutesController", ["$scope", "$http", "$route", "$interval", function ($scope, $http, $route, $interval) {

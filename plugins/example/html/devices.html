@@ -18,14 +18,14 @@
     <div class="col-md-12" ng-controller="Devices.RoutesController">
         <p ng-show="flash">{{flash}}</p>
 
-            <h2>Devices registered in the cloud</h2>
+        <h2>Devices registered in the cloud</h2>
 
         <p>
-            <table>
+            <table ng-show="devices.length > 0">
                 <tr ng-repeat="device in devices">
                     <td style="padding-right: 10px;padding-bottom: 10px;">
-                        <i ng-show="{{!disconnectedDevices.contains(device.endpoint)}}" class="fa fa-heart"> {{device.endpoint}}</i>
-                        <i ng-show="{{disconnectedDevices.contains(device.endpoint)}}" class="fa fa-heart-o"> {{device.endpoint}}</i>
+                        <i ng-show="!disconnectedDevices.contains(device.endpoint)" class="fa fa-heart"> {{device.endpoint}}</i>
+                        <i ng-show="disconnectedDevices.contains(device.endpoint)" class="fa fa-heart-o"> {{device.endpoint}}</i>
                     </td>
                     <td style="padding-right: 10px;padding-bottom: 10px;">
                         <button class="btn" ng-click="sendHeartbeat(device.endpoint)">
@@ -34,6 +34,12 @@
                     </td>
                 </tr>
             </table>
+
+            <div ng-show="devices.length === 0">
+                No devices registered in the cloud. Use our
+                <a href="https://github.com/rhiot/rhiot/blob/master/docs/readme.md#device-management-rest-api">REST</a>
+                or LWM2M APIs to connect your devices.
+            </div>
         </p>
     </div>
 </div>

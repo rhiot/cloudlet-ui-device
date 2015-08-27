@@ -35,4 +35,4 @@ var Devices;
         }]);
     hawtioPluginLoader.addModule(Devices.pluginName);
 })(Devices || (Devices = {}));
-//# sourceMappingURL=examplePlugin.js.map
+//# sourceMappingURL=devicesPlugin.js.map

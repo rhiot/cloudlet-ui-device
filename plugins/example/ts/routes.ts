@@ -13,7 +13,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 
-/// <reference path="examplePlugin.ts"/>
+/// <reference path="devicesPlugin.ts"/>
 module Devices {
 
   export var RoutesController = _module.controller("Devices.RoutesController", ["$scope", "$http", "$route", "$interval", ($scope, $http, $route, $interval) => {
