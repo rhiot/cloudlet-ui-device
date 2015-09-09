@@ -17,7 +17,7 @@
 /// <reference path="exampleGlobals.ts"/>
 module Devices {
 
-  export var _module = angular.module(Devices.pluginName, []);
+  export var _module = angular.module(Devices.pluginName, ['ngResource']);
 
   var tab = undefined;
 

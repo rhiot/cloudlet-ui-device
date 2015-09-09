@@ -16,7 +16,7 @@
 /// <reference path="devicesPlugin.ts"/>
 module Devices {
 
-  export var RoutesController = _module.controller("Devices.RoutesController", ["$scope", "$http", "$route", "$interval", ($scope, $http, $route, $interval) => {
+  export var RoutesController = _module.controller("Devices.RoutesController", ["$scope", "$http", "$route", "$interval", "$resource", ($scope, $http, $route, $interval, $resource) => {
       $scope.imagesPrefix = window.location.port === '2772' ? 'images' : 'libs/cloudlet-device/images';
 
       $scope.updateDevicesList = function() {
@@ -66,16 +66,16 @@ module Devices {
       };
 
       $scope.createVirtualDevice = function(deviceId) {
-          var device = {clientId: deviceId};
-          $http.post(Device.deviceCloudletApiBase() + '/client', device).
-              success(function(data, status, headers, config) {
+          var DeviceResource = $resource(Device.deviceCloudletApiBase() + '/client');
+          var virtualDevice = new DeviceResource({clientId: deviceId});
+          virtualDevice.$save(
+              function(device) {
                   log.debug('New virtual device ' + deviceId + ' has been created.');
                   $scope.newDeviceId = '';
                   $scope.updateDevicesList();
-              }).
-              error(function(data, status, headers, config) {
+            }, function(error){
                   Device.deviceManagementCloudletFailure($scope);
-              }
+            }
           );
       };
   }]);
