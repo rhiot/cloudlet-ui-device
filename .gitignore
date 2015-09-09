@@ -7,3 +7,5 @@ node/
 node_modules/
 
 d.ts/
+**/ts/*.js
+**/ts/*.js.map

@@ -39,10 +39,6 @@ var Device;
         return cloudletApiBase() + '/geofencing';
     }
     Device.geofencingCloudletApiBase = geofencingCloudletApiBase;
-    function documentCloudletApiBase() {
-        return cloudletApiBase() + '/document';
-    }
-    Device.documentCloudletApiBase = documentCloudletApiBase;
     function deviceCloudletApiBase() {
         return cloudletApiBase();
     }

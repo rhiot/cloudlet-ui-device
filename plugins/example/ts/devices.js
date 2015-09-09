@@ -46,10 +46,27 @@ var Devices;
                     Device.deviceManagementCloudletFailure($scope);
                 });
             };
-            $scope.clientSelected = function () {
-                $scope.client = $scope.selectedOption.id;
-                $scope.routesExportLink = Device.geofencingCloudletApiBase() + '/routes/export/' + $scope.client + '/xls';
-                $scope.loadRoutes();
+            $scope.deregister = function (deviceId) {
+                $http.delete(Device.deviceCloudletApiBase() + '/device/' + deviceId).
+                    success(function (data, status, headers, config) {
+                    Devices.log.debug('Device ' + deviceId + ' deregistered.');
+                    $scope.updateDevicesList();
+                }).
+                    error(function (data, status, headers, config) {
+                    Device.deviceManagementCloudletFailure($scope);
+                });
+            };
+            $scope.createVirtualDevice = function (deviceId) {
+                var device = { clientId: deviceId };
+                $http.post(Device.deviceCloudletApiBase() + '/client', device).
+                    success(function (data, status, headers, config) {
+                    Devices.log.debug('New virtual device ' + deviceId + ' has been created.');
+                    $scope.newDeviceId = '';
+                    $scope.updateDevicesList();
+                }).
+                    error(function (data, status, headers, config) {
+                    Device.deviceManagementCloudletFailure($scope);
+                });
             };
         }]);
 })(Devices || (Devices = {}));

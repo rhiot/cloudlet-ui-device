@@ -43,10 +43,6 @@ module Device {
         return cloudletApiBase() + '/geofencing';
     }
 
-    export function documentCloudletApiBase() {
-        return cloudletApiBase() + '/document';
-    }
-
     export function deviceCloudletApiBase() {
         return cloudletApiBase();
     }

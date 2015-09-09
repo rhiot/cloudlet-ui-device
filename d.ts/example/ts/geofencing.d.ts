@@ -5,7 +5,6 @@ declare module Device {
     var cloudUriParam: string;
     function cloudletApiBase(): string;
     function geofencingCloudletApiBase(): string;
-    function documentCloudletApiBase(): string;
     function deviceCloudletApiBase(): string;
     function deviceManagementCloudletFailure(scope: any): void;
 }

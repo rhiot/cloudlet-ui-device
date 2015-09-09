@@ -21,13 +21,32 @@
         <div ng-show="isDeviceManagementCloudletConnected">
 
         <h2>Devices registered in the cloud</h2>
-
         <p>
+            <table>
+            <tr>
+                <td>
+            <input type="text" ng-model="newDeviceId" />
+                </td>
+                <td>
+                    <button ng-disabled="newDeviceId === nil || newDeviceId.length === 0" class="btn" ng-click="createVirtualDevice(newDeviceId)">
+                Create virtual device
+            </button>
+                </td>
+            </tr>
+        </table>
+        </p>
+        <p>
+
             <table ng-show="devices.length > 0">
                 <tr ng-repeat="device in devices">
                     <td style="padding-right: 10px;padding-bottom: 10px;">
                         <i ng-show="!disconnectedDevices.contains(device.endpoint)" class="fa fa-heart"> {{device.endpoint}}</i>
                         <i ng-show="disconnectedDevices.contains(device.endpoint)" class="fa fa-heart-o"> {{device.endpoint}}</i>
+                    </td>
+                    <td style="padding-right: 10px;padding-bottom: 10px;">
+                        <button class="btn" ng-click="deregister(device.endpoint)">
+                            Deregister
+                        </button>
                     </td>
                     <td style="padding-right: 10px;padding-bottom: 10px;">
                         <button class="btn" ng-click="sendHeartbeat(device.endpoint)">
@@ -40,7 +59,11 @@
             <div ng-show="devices.length === 0">
                 No devices registered in the cloud. Use our
                 <a href="https://github.com/rhiot/rhiot/blob/master/docs/readme.md#device-management-rest-api">REST</a>
-                or LWM2M APIs to connect your devices.
+                or <a href="https://github.com/rhiot/rhiot/blob/master/docs/readme.md#accessing-lwm2m-server-directly">LWM2M</a>
+                APIs to connect your devices.
+                <br>
+                You can also create the virtual device using the form above - just give it
+                the unique name!
             </div>
         </p>
         </div>
