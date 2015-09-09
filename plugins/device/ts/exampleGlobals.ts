@@ -14,13 +14,13 @@
 /// limitations under the License.
 
 /// <reference path="../../includes.ts"/>
-/// <reference path="geofencing.ts"/>
+/// <reference path="device.ts"/>
 module Devices {
 
   export var pluginName = "cloudlet-device";
 
   export var log: Logging.Logger = Logger.get(pluginName);
 
-  export var templatePath = "plugins/example/html";
+  export var templatePath = "plugins/device/html";
 
 }
