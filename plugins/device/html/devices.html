@@ -25,7 +25,7 @@
             <table>
             <tr>
                 <td>
-            <input type="text" ng-model="newDeviceId" />
+                    <input type="text" ng-model="newDeviceId" />
                 </td>
                 <td>
                     <button ng-disabled="newDeviceId === nil || newDeviceId.length === 0" class="btn" ng-click="createVirtualDevice(newDeviceId)">
@@ -39,7 +39,7 @@
 
             <table ng-show="devices.length > 0">
                 <tr ng-repeat="device in devices">
-                    <td style="padding-right: 10px;padding-bottom: 10px;">
+                    <td style="padding-right: 10px;padding-bottom: 10px;" ng-click="refreshDeviceDetails(device.endpoint)">
                         <i ng-show="!disconnectedDevices.contains(device.endpoint)" class="fa fa-heart"> {{device.endpoint}}</i>
                         <i ng-show="disconnectedDevices.contains(device.endpoint)" class="fa fa-heart-o"> {{device.endpoint}}</i>
                     </td>
@@ -54,6 +54,10 @@
                         </button>
                     </td>
                 </tr>
+            </table>
+
+            <table ng-show="deviceDetails" class="table table-condensed table-striped" hawtio-simple-table="deviceDetailsGridOptions">
+                <b>{{deviceEndpoint}}</b>
             </table>
 
             <div ng-show="devices.length === 0">

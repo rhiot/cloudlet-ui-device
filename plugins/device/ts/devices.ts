@@ -39,7 +39,7 @@ module Devices {
       };
 
       $scope.updateDevicesList();
-      $interval($scope.updateDevicesList, 1000);
+      $interval($scope.updateDevicesList, 5000);
 
       $scope.sendHeartbeat = function(deviceId) {
           $http.get(Device.deviceCloudletApiBase() + '/device/' + deviceId + '/heartbeat').
@@ -66,7 +66,7 @@ module Devices {
       };
 
       $scope.createVirtualDevice = function(deviceId) {
-          var DeviceResource = $resource(Device.deviceCloudletApiBase() + '/client');
+          var DeviceResource = $resource(Device.deviceCloudletApiBase() + '/device');
           var virtualDevice = new DeviceResource({clientId: deviceId});
           virtualDevice.$save(
               function(device) {
@@ -77,6 +77,46 @@ module Devices {
                   Device.deviceManagementCloudletFailure($scope);
             }
           );
+      };
+
+      $scope.refreshDeviceDetails = function(deviceId) {
+          $scope.deviceDetails = null;
+          $scope.deviceEndpoint = deviceId + ' (loading...)';
+          $http.get(Device.deviceCloudletApiBase() + '/device/' + deviceId + '/details').
+              success(function (data, status, headers, config) {
+                  $scope.deviceEndpoint = deviceId;
+
+                  var metricIndex;
+                  var x = [];
+                  for (metricIndex in Object.keys(data.deviceDetails)) {
+                      var metric = Object.keys(data.deviceDetails)[metricIndex];
+                      x[metricIndex] = {metric: metric, value: data.deviceDetails[metric]};
+                  }
+                  $scope.deviceDetails = x;
+              }).
+              error(function (data, status, headers, config) {
+                  Device.deviceManagementCloudletFailure($scope);
+              }
+          );
+      };
+
+      $scope.deviceDetailsGridOptions = {
+          data: 'deviceDetails',
+          showSelectionCheckbox: false,
+          sortInfo: {
+              sortBy: 'metric',
+              ascending: true
+          },
+          columnDefs: [
+              {
+                  field: 'metric',
+                  displayName: 'Device metric'
+              },
+              {
+                  field: 'value',
+                  displayName: 'Metric value'
+              }
+          ]
       };
   }]);
 
