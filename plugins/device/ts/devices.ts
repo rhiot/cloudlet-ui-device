@@ -87,12 +87,14 @@ module Devices {
                   $scope.deviceEndpoint = deviceId;
 
                   var metricIndex;
-                  var x = [];
+                  var metricsTableData = [];
                   for (metricIndex in Object.keys(data.deviceDetails)) {
-                      var metric = Object.keys(data.deviceDetails)[metricIndex];
-                      x[metricIndex] = {metric: metric, value: data.deviceDetails[metric]};
+                      if (Object.keys(data.deviceDetails).hasOwnProperty(metricIndex)) {
+                          var metric = Object.keys(data.deviceDetails)[metricIndex];
+                          metricsTableData[metricIndex] = {metric: metric, value: data.deviceDetails[metric]};
+                      }
                   }
-                  $scope.deviceDetails = x;
+                  $scope.deviceDetails = metricsTableData;
               }).
               error(function (data, status, headers, config) {
                   Device.deviceManagementCloudletFailure($scope);
